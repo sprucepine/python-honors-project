@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import PythonLogicPanel from '@/components/PythonLogicPanel.vue'
 import TaskBoard from '@/components/TaskBoard.vue'
+import Welcome from './Welcome.vue';
 </script>
 
 <template>
 	<main class="page">
+		<Welcome />
 		<PythonLogicPanel />
 		<TaskBoard />
 	</main>

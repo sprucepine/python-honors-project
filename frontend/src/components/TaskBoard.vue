@@ -1,105 +1,55 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import draggable from 'vuedraggable'
+import { useTaskStore } from '@/stores/tasks'
+import { SaveState } from '@/types/tasks'
 
-type TaskItem = {
-  id: number
-  label: string
-}
-
-const tasks = ref<TaskItem[]>([])
-const tasksError = ref('')
-const saveStatus = ref('')
-
-async function loadTasks() {
-  tasksError.value = ''
-
-  try {
-    const response = await fetch('/api/tasks')
-    if (!response.ok) {
-      throw new Error('Failed to load tasks')
-    }
-
-    const data = await response.json()
-    tasks.value = data.items
-  } catch {
-    tasksError.value = 'Could not load tasks from Python backend.'
-  }
-}
+const taskStore = useTaskStore()
+const { tasks, saveStatusText } = storeToRefs(taskStore)
+const statusTimer = ref<number | null>(null)
 
 async function persistOrder() {
-  saveStatus.value = 'Saving order...'
+  taskStore.setSaveState(SaveState.Saving)
 
-  try {
-    const response = await fetch('/api/tasks/reorder', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ items: tasks.value }),
-    })
+  // Persisted Pinia state writes to localStorage automatically.
+  await Promise.resolve()
+  taskStore.setSaveState(SaveState.Saved)
 
-    if (!response.ok) {
-      throw new Error('Failed to save task order')
-    }
-
-    const data = await response.json()
-    tasks.value = data.items
-    saveStatus.value = 'Order saved'
-  } catch {
-    saveStatus.value = 'Save failed'
+  if (statusTimer.value !== null) {
+    window.clearTimeout(statusTimer.value)
   }
+
+  statusTimer.value = window.setTimeout(() => {
+    taskStore.setSaveState(SaveState.Idle)
+    statusTimer.value = null
+  }, 1200)
 }
 
 function moveTaskUp(index: number) {
-  if (index > 0) {
-    const current = tasks.value[index]
-    const previous = tasks.value[index - 1]
-    if (!current || !previous) {
-      return
-    }
-
-    tasks.value[index] = previous
-    tasks.value[index - 1] = current
+  const moved = taskStore.moveTaskUp(index)
+  if (moved) {
     persistOrder()
   }
 }
 
 function moveTaskDown(index: number) {
-  if (index < tasks.value.length - 1) {
-    const current = tasks.value[index]
-    const next = tasks.value[index + 1]
-    if (!current || !next) {
-      return
-    }
-
-    tasks.value[index] = next
-    tasks.value[index + 1] = current
+  const moved = taskStore.moveTaskDown(index)
+  if (moved) {
     persistOrder()
   }
 }
-
-onMounted(loadTasks)
 </script>
 
 <template>
-  <section class="panel card bg-base-100 shadow-md">
+  <section class="panel card bg-base-100 shadow-sm">
     <div class="tasks-heading">
       <h2 class="panel-title">Drag and Drop Tasks</h2>
-      <span class="status" v-if="saveStatus">{{ saveStatus }}</span>
-    </div>
-
-    <div
-      v-if="tasksError"
-      class="error"
-      role="alert"
-      aria-live="assertive"
-    >
-      {{ tasksError }}
+      <span class="status" v-if="saveStatusText">{{ saveStatusText }}</span>
     </div>
 
     <div class="sr-only" id="task-status-region" role="status" aria-live="polite" aria-atomic="true">
-      {{ saveStatus }}
+      {{ saveStatusText }}
     </div>
 
     <p class="keyboard-hint">Tip: Use arrow keys to move tasks, or drag with your mouse.</p>
@@ -166,27 +116,25 @@ onMounted(loadTasks)
 .panel-title {
   font-size: 1.05rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .tasks-heading {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  white-space: nowrap;
   font-size: 0.85rem;
   color: color-mix(in oklab, var(--color-base-content) 65%, transparent);
-}
-
-.error {
-  color: #b42318;
-  margin-bottom: 0.5rem;
-  background-color: color-mix(in oklab, #b42318 15%, transparent);
-  padding: 0.75rem;
-  border-radius: 0.375rem;
-  border-left: 4px solid #b42318;
 }
 
 .task-row {

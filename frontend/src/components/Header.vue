@@ -8,9 +8,25 @@ const logo = '/logo.svg';
       <img :src="logo" aria-hidden="true" class="logo" />
       <span>Bubblesheets on the Web</span>
     </a>
+      <ul class="menu menu-horizontal px-1">
+        <li>
+          <details>
+            <summary>
+              Project Name
+            </summary>
+            <ul class="bg-base-100 rounded-box right-0 w-56 p-2 shadow">
+              <li>
+                <a href="https://github.com/sprucepine/bubblesheets" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2" aria-label="Swift app repository (opens in new tab)" >
+                  <span>Change Project Name</span>
+                  <iconify-icon icon="lucide:pencil" width="14" height="14" aria-hidden="true"></iconify-icon>
+                </a>
+              </li>
+            </ul>
+          </details>
+        </li>
+      </ul>
   </div>
     <div class="navbar-end">
-      
       <ul class="menu menu-horizontal px-1">
         <li>
           <details>

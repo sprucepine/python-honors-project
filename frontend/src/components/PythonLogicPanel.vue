@@ -10,16 +10,20 @@ const input = ref('')
 const result = ref<ProcessResult | null>(null)
 
 async function runLogic() {
-  const response = await fetch(`/api/process?text=${encodeURIComponent(input.value)}`)
-  result.value = await response.json()
+  // Mirror backend demo behavior directly in TS for static hosting.
+  const processed_text = input.value.split('').reverse().join('').toUpperCase()
+  result.value = {
+    processed_text,
+    length: input.value.length,
+  }
 }
 </script>
 
 <template>
   <section class="panel card bg-base-100 shadow-md">
-    <h2 class="panel-title">Python Logic Demo</h2>
+    <h2 class="panel-title">Logic Demo (TypeScript)</h2>
     <div class="logic-controls">
-      <label for="logic-input" class="sr-only">Text input for Python logic</label>
+      <label for="logic-input" class="sr-only">Text input for TypeScript logic</label>
       <input
         id="logic-input"
         class="input input-bordered"
@@ -27,10 +31,10 @@ async function runLogic() {
         placeholder="Type something..."
         aria-describedby="logic-desc"
       />
-      <p id="logic-desc" class="sr-only">Enter text to be processed by the Python logic engine.</p>
-      <button class="btn btn-primary" @click="runLogic" aria-label="Run Python logic to process text">
+      <p id="logic-desc" class="sr-only">Enter text to be processed by the TypeScript logic engine.</p>
+      <button class="btn btn-primary" @click="runLogic" aria-label="Run TypeScript logic to process text">
         <iconify-icon icon="lucide:sparkles" width="18" height="18" aria-hidden="true"></iconify-icon>
-        Run Python Logic
+        Run Logic
       </button>
     </div>
 
