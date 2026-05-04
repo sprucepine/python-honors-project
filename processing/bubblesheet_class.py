@@ -6,8 +6,8 @@ import json
 class Task(BaseModel):
     id: int
     label: str
-    answer: str
-    notes: str
+    answer: str = ""
+    notes: str = ""
 
 class Project(BaseModel):
     name: str
