@@ -4,7 +4,8 @@ def display_home_menu():
     print("Options:")
     print("1. Show questions")
     print("2. Add questions")
-    print("3. Exit")
+    print("3. Save and exit")
+    print("4. Exit")
 
 """
 displays home menu options

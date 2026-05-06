@@ -24,9 +24,18 @@ def load_bubblesheet(filename: str) -> BubbleSheet:
     filename = Path(filename).stem
     with open(f'data/{filename}.bubblesheet', 'r') as file:
         return BubbleSheet.model_validate_json(file.read())
-    # open(f'data/{filename}.bubblesheet', 'w').write(bubblesheet.model_dump_json(indent=2))
+   
 """
 defines the BubbleSheet class and the load_bubblesheet function to read a .bubblesheet file and return a BubbleSheet object
 args: filename (str)
 returns: BubbleSheet object
+"""
+def save_bubblesheet(bubblesheet: BubbleSheet, filename: str):
+    filename = Path(filename).stem
+    with open(f'data/{filename}.bubblesheet', 'w') as file:
+        file.write(bubblesheet.model_dump_json(indent=2))
+"""
+saves a BubbleSheet object to a .bubblesheet file
+args: bubblesheet (BubbleSheet), filename (str)
+returns: None
 """

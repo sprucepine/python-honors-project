@@ -1,0 +1,39 @@
+processing/__pycache__/bubblesheet_class.cpython-312.pyc
+*.pyc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+pip-wheel-metadata/
+*.egg-info/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Unit test / coverage
+.pytest_cache/
+.mypy_cache/
+processing/__pycache__/bubblesheet_class.cpython-312.pyc
+processing/__pycache__/home_menu.cpython-312.pyc
+processing/__pycache__/select_file.cpython-312.pyc
+processing/__pycache__/welcome.cpython-312.pyc
+processing/bubblesheet_class.py
+processing/check_ids.py
+processing/home_menu.py
+processing/normalize-ids.py
+processing/select_file.py
+processing/__pycache__/bubblesheet_class.cpython-312.pyc
+processing/__pycache__/home_menu.cpython-312.pyc
+processing/__pycache__/select_file.cpython-312.pyc
+processing/__pycache__/welcome.cpython-312.pyc
+processing/tools/add_question.py
+processing/tools/show_questions.py
+processing/tools/__pycache__/show_questions.cpython-312.pyc

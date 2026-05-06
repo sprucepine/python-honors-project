@@ -1,9 +1,12 @@
 from pathlib import Path
 
+from processing.horizontal_line import horizontal_line
+
 
 def select_file():
     print("Please place a file in the data folder, and then press Enter to continue.")
     input("Press enter to continue...")
+    horizontal_line()
     filename = Path(input("Please enter the name of the file you want to use (excluding the .bubblesheet extension): ")).stem
     try :
         with open(f'data/{filename}.bubblesheet', 'r') as file:
