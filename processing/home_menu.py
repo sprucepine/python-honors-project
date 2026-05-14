@@ -5,7 +5,7 @@ def display_home_menu():
     print("1. Show questions")
     print("2. Add questions")
     print("3. Save and exit")
-    print("4. Exit")
+    print("To exit without saving, simply press CTRL+C")
 
 """
 displays home menu options

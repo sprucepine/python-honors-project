@@ -1,32 +1,26 @@
 {
   "format": "bubblesheet",
   "version": 1,
-  "exportedAt": "2026-05-03T13:43:50.280Z",
+  "exportedAt": "2026-05-11T12:26:57.862Z",
   "project": {
     "name": "Project Name",
     "tasks": [
       {
         "id": 0,
-        "label": "Publish report",
+        "label": "New Task",
         "answer": "A",
         "notes": ""
       },
       {
         "id": 1,
-        "label": "Review source data",
-        "answer": "E",
+        "label": "New Task",
+        "answer": "A",
         "notes": ""
       },
       {
         "id": 2,
-        "label": "New Task",
-        "answer": "A",
-        "notes": ""
-      },
-      {
-        "id": 3,
-        "label": "New Task",
-        "answer": "A",
+        "label": "",
+        "answer": "C",
         "notes": ""
       }
     ]

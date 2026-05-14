@@ -1,6 +1,7 @@
 from pathlib import Path
 from pydantic import BaseModel
 from typing import List
+import datetime
 import json
 
 class Task(BaseModel):
@@ -16,7 +17,7 @@ class Project(BaseModel):
 class BubbleSheet(BaseModel):
     format: str
     version: int
-    exportedAt: str
+    exportedAt: str = datetime.datetime.now().isoformat()
     project: Project
 
 # Load & Save (2 lines!)

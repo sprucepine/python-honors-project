@@ -39,6 +39,8 @@ def main():
         horizontal_line()
         main()  # Return to the main menu after an invalid choice
 
+# Startup process
+
 horizontal_line()
 password()
 horizontal_line()
